@@ -1,5 +1,4 @@
 require_relative 'analyzer/analyzer_lexicon.rb'
-require_relative "file_compiler"
 
 class Main
   include Analyzer
@@ -15,6 +14,7 @@ class Main
   print "Digite o nome do Arquivo de Entrada:"
   file_input_name = gets.chomp
   analyzer.file_input(file_input_name)
+  analyzer.dictionary_list
 
 end
 
