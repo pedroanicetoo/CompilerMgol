@@ -3,7 +3,7 @@ module Controller
     
     attr_accessor :classname, :lexem, :type
 
-    def initialize(classname, lexem, type)
+    def initialize(classname = nil, lexem = nil, type = nil)
       @classname = classname
       @lexem = lexem
       @type = type
