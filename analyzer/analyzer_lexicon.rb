@@ -2,6 +2,7 @@ require_relative '../controller/data'
 require_relative '../controller/character'
 require_relative '../syntax/symbols'
 require_relative '../syntax/transitions'
+require 'colorize'
 
 module Analyzer
   class AnalyzerLexicon
@@ -12,9 +13,9 @@ module Analyzer
       @file = file
       @dictionary_tokens = {}
       @char_stream = {}
-      @delimiters = [" ", "\n"]
       @error_table = {}
       @state_stack=[]
+      @bffCaracter = ""
       @transition_table = Array.new(29){Array.new(24)}
       @pos, @error, @linerror, @columnerror = 0, 0, 1, 1
     end
@@ -23,8 +24,9 @@ module Analyzer
       fill_reserved_words
       fill_error_table
       fill_transition_table
-      read_file_input(@file)
-      output
+      if read_file_input(@file)
+        output
+      end
     end
     
     # read file input and save each character to dictionary_char table
@@ -32,7 +34,7 @@ module Analyzer
       begin 
         File.open(file_name,'r') {|file| fill_dictionary_char(file) }
       rescue Exception => e
-        puts e
+        puts "Erro ao abrir arquivo".red
       end
     end
 
@@ -43,26 +45,27 @@ module Analyzer
       until(file.eof?)
         ch = file.getc
         unless ch == "\n"
-          @char_stream[index] = Controller::Character.new(ch,line,col) 
+          @char_stream[index] = Controller::Character.new(ch,ch.ord,line,col) 
           col += 1
           index+=1
         else
-          @char_stream[index] = Controller::Character.new(ch,line,col) 
+          @char_stream[index] = Controller::Character.new(ch,ch.ord,line,col) 
           col = 0
           line += 1
           index+=1
         end
       end
-      @char_stream[index] = Controller::Character.new("\x03",0,0) if file.eof? 
+      @char_stream[index] = Controller::Character.new("\x03",3,0,0) if file.eof? 
     end
     
     def fill_error_table
-      @error_table[1] = "ERRO1 - Caractere Inválido na linguagem"
-      @error_table[16] = "ERRO16 - Constantes literais nao permitidas"
-      @error_table[18] = "ERRO18 - Formatacao de comentário (chaves) inválida"
-      @error_table[21] = "ERRO21 - Constantes numericas não permitidas"
-      @error_table[23] = "ERRO23 - Constantes numericas nao permitidas"
-      @error_table[24] = "ERRO24 - Constantes numericas nao permitidas"
+      @error_table[1] = "ERRO1 - Caractere Inválido na linguagem".red
+      @error_table[16] = "ERRO16 - Constantes literais nao permitidas".red
+      @error_table[18] = "ERRO18 - Formatacao de comentário (chaves) inválida".red
+      @error_table[28] = "ERRO28 - Formatacao de comentário (chaves) inválida".red
+      @error_table[21] = "ERRO21 - Constantes numericas não permitidas".red
+      @error_table[23] = "ERRO23 - Constantes numericas nao permitidas".red
+      @error_table[24] = "ERRO24 - Constantes numericas nao permitidas".red
     end
     
     def fill_reserved_words
@@ -72,111 +75,117 @@ module Analyzer
     end
   
     def output
-      bffCaracter = ""
-      caracter, line, col = 0, 1, 0
+      character, line, col = 0, 1, 0
       stream_size = @char_stream.length
       set_initial_state_on_trasition_table
       while @pos <= stream_size && @error == 0
         testing = 0
-        character = @char_stream[@pos].char if !@char_stream[@pos].nil?
-
-        #Qual coluna da tabela de transição vai ser escolhida ?
-        #Generic Symbols
+        character = @char_stream[@pos] if !@char_stream[@pos].nil?
+        #wich column from transition table is be choosen ? (generic Symbols)
         for i in 0..23
-          if @transition_table[0][i]== character.ord ##Testing if symbol in or not on transition table
+          if @transition_table[0][i]==character.ascii ## testing if symbol in or not on transition table
             col = i
             testing = 1
           end
         end
 
-        col = 17 if testing == 0 && character.ord != 10 && character.ord != 13 && character.ord == 32 # Coloque ele na coluna que representa a coluna dos outros caracteres
+        ######if symbol not in transition table put it on the right column######
+        col = 17 if testing == 0 && character.ascii != 10 && character.ascii != 13 && character.ascii == 32
 
-        col = 19 if testing == 0 && (character.ord == 10 || character.ord == 13 || character.ord == 32) # Verifico se o caracter é espaço, tab ou quebra linha
+        col = 19 if testing == 0 && (character.ascii == 10 || character.ascii == 13 || character.ascii == 32) # space,tab,\n
 
-        col = 18 if (character.ord == -1 || character.ord == 3) # Verifico se o caracter é EOF
+        col = 18 if (character.ascii == -1 || character.ascii == 3) # EOF
         
-        col = 1   if numeric?(character) # numeric check
+        col = 1   if numeric?(character.char) # D
 
-        bffCaracter << character if col == 21 && character.ord == 32 && @state_stack.last == 15
+        @bffCaracter << character.char if col == 21 && character.ascii == 32 && @state_stack.last == 15 # space inside string
 
-        col = 2 if caracter.ord == 92 && @state_stack.last == 15 #Se for \n e o estado atual é de literal não ignore
+        col = 2 if character.ascii == 92 && @state_stack.last == 15 #if \n and current state is literal dont ignore
 
-        col = 2   if letter?(character)
+        col = 2   if letter?(character.char)
         
-        col = 3   if ((character.ord == 69 || character.ord == 101) && (@state_stack.last == 19 || @state_stack.last == 21)) # Tratando e|E em numéricos
-        
-        ## Nessa Coluna, qual linha representa o estado atual da transição ???
-        # search for the current_state
+        col = 3   if ((character.ascii == 69 || character.ascii == 101) && (@state_stack.last == 19 || @state_stack.last == 21)) # e|E on D 
+
+        #On this column, wich line represent the current state of transition ?
         (0..28).map{|i| line = i if @transition_table[i][0] == @state_stack.last}
         
+        # current state
         @state_stack << @transition_table[line][col] # Adicionana na tabela de estados
         
-        # Verificando se o estado atual é vazio ou de erro
+        # current state is empty or error
         if @transition_table[line][col] == 0
-          output_lexem(@dictionary_tokens[bffCaracter]) if Syntax::Symbols::TOKENS.include? bffCaracter
-          unless Syntax::Symbols::TOKENS.include? bffCaracter # Caso não esteja na tabela - Buscar qual token este estado pertence
+          if Syntax::Symbols::TOKENS.include? @bffCaracter
+            output_lexem(@dictionary_tokens[@bffCaracter])
+          else
             @state_stack.pop
             case @state_stack.last
             when 1..2,4..5,7
-              laux = Controller::Data.new(bffCaracter, "opr", nil)
+              laux = Controller::Data.new(@bffCaracter, "opr", nil)
               output_lexem(laux)
             when 3,-1
               laux = Controller::Data.new("EOF", "EOF", nil)
               output_lexem(laux)
             when 6
-              laux = Controller::Data.new(bffCaracter, "rcb", nil)
+              laux = Controller::Data.new(@bffCaracter, "rcb", nil)
               output_lexem(laux)
             when 8
-              laux = Controller::Data.new(bffCaracter, "pt_v", nil)
+              laux = Controller::Data.new(@bffCaracter, "pt_v", nil)
               output_lexem(laux)
             when 9
-              laux = Controller::Data.new(bffCaracter, "ab_p", nil)
+              laux = Controller::Data.new(@bffCaracter, "ab_p", nil)
               output_lexem(laux)
             when 10
-              laux = Controller::Data.new(bffCaracter, "fc_p", nil)
+              laux = Controller::Data.new(@bffCaracter, "fc_p", nil)
               output_lexem(laux)
             when 11..14,26
-              laux = Controller::Data.new(bffCaracter, "opm", nil)
+              laux = Controller::Data.new(@bffCaracter, "opm", nil)
               output_lexem(laux)
             when 16
-              laux = Controller::Data.new(bffCaracter, "literal", "literal")
+              laux = Controller::Data.new(@bffCaracter, "literal", "literal")
               output_lexem(laux)
             when 18
               output_lexem(laux)
             when 19
-              laux = Controller::Data.new(bffCaracter, "num", "inteiro")
+              laux = Controller::Data.new(@bffCaracter, "num", "inteiro")
               output_lexem(laux)
             when 21,24
-              laux = Controller::Data.new(bffCaracter, "num", "real")
+              laux = Controller::Data.new(@bffCaracter, "num", "real")
               output_lexem(laux)
             when 25
-              laux = Controller::Data.new(bffCaracter, "id", nil)
+              laux = Controller::Data.new(@bffCaracter, "id", nil)
               output_lexem(laux)
-              @dictionary_tokens[bffCaracter] = laux 
+              @dictionary_tokens[@bffCaracter] = laux 
             else
-              symerror = Controller::Data.new("ERRO#{line}", bffCaracter, nil)
-              output_lexem(symerror)
+              symerror = Controller::Data.new("ERRO#{line}", @bffCaracter, nil)
+              output_lexem_error(symerror)
               puts "#{@error_table[line]}, linha #{@linerror}, coluna #{@columnerror}"
+              skip_line
             end
           end
           @state_stack.clear # clear stable stack
           @state_stack << @transition_table[1][col] 
-          bffCaracter = ""
+          @bffCaracter = ""
         end
-        
-        # puts "[#{@linerror},#{@columnerror}]coluna #{col} / tabela de estados #{@state_stack} / caracter: #{character} caracterascc: #{character.ord} / tabela de tansição [#{line},#{col}]" # DEBUGG
-        
-        if @transition_table[line][col] == 132 && character.ord != 10
+
+        # if current character if not space,tab or \n store this on the buffer
+        @bffCaracter << character.char if not_jumps(character)
+
+        if !(Syntax::Transitions::S.include? character.ascii) && not_jumps(character) && !numeric?(character.char) && !letter?(character.char)
+          output_lexem_error(Controller::Data.new("ERRO#{line}", character.char, nil))
+          puts "#{@error_table[line]}, linha #{@linerror}, coluna #{@columnerror}"
+          @bffCaracter = ""
+          skip_line
+        end
+
+        if @transition_table[line][col] == 132
+          output_lexem_error(Controller::Data.new("ERRO#{line}", character.char, nil))
           puts "#{@error_table[line]}, linha #{@linerror}, coluna #{@columnerror}"
           @error = 1
         end
 
-        # Caso o caracter atual não seja espaço, tab ou quebra linha guarde ele no buffer
-        bffCaracter << character if character.ord != 10 && character.ord != 13 && character.ord != 32
-
-        @pos+=1
+        @pos+=1 #count
         
-        if(character.ord == 13 || character.ord == 10) #\n
+        if(character.ascii == 13 || character.ascii == 10) #\n
           @linerror+=1
           @columnerror=1
         else
@@ -190,16 +199,7 @@ module Analyzer
       col = 0
       @state_stack.push @transition_table[line][col]  
     end
-
-    def next_start_line
-      while  @char_stream[@pos].char != "\n"
-        return (@pos-1) if @char_stream[@pos].char.ord == 3 # if stream is EOF
-        @pos+=1
-      end
-      return @pos
-    end
     
-
     def fill_transition_table
       s = Syntax::Transitions::S
       t = 0
@@ -210,9 +210,21 @@ module Analyzer
         end
       end
     end
+
+    def skip_line
+      while @char_stream[@pos] && @char_stream[@pos].ascii && @char_stream[@pos].ascii != 10 
+        @pos+=1
+      end
+      @linerror+=1
+      @columnerror=0
+    end
     
     def output_lexem(data)
-      puts "Classe: #{data.classname}, Lexema: #{data.lexem}, Tipo: #{data.type.nil? ? 'NULO' : data.type}"      
+      puts "Classe: #{data.classname}, Lexema: #{data.lexem}, Tipo: #{data.type.nil? ? 'NULO' : data.type}".green     
+    end
+
+    def output_lexem_error(data)
+      puts "Classe: #{data.classname}, Lexema: #{data.lexem}, Tipo: #{data.type.nil? ? 'NULO' : data.type}".yellow
     end
     
     def letter?(lookAhead)
@@ -222,6 +234,11 @@ module Analyzer
     def numeric?(lookAhead)
       lookAhead.match?(/[[:digit:]]/)
     end
+
+    def not_jumps(character)
+      (character.ascii != 10 && character.ascii != 13 && character.ascii != 32)
+    end
+    
 
   end
 end
