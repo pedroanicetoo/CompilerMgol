@@ -1,8 +1,7 @@
-require_relative 'analyzer/analyzer_lexicon.rb'
-
-
 require_relative 'analyzer/lex_analyzer'
+require_relative 'analyzer/sin_analyzer'
 require_relative 'static/lex'
+require_relative 'static/sin'
 
 class Main
   include Analyzer
@@ -14,7 +13,18 @@ class Main
   #   print("#{i}:#{Static::Symbols::T_SYMBOLS[i]}")
   # end
 
-  Analyzer::LexAnalyzer.new(gets.chomp).perform!
 
+
+  # new_version LEX
+  # file_name = gets.chomp
+  # lex = Analyzer::LexAnalyzer.new(file_name)
+  # lex.instance_tables
+  # lex.perform!
+
+
+  # Sin Analyzer
+  file_name = gets.chomp
+  sin = Analyzer::SinAnalyzer.new(file_name)
+  sin.instance_tables
+  sin.main
 end
-

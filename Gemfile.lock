@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    backport (1.1.2)
+    readapt (1.2.0)
+      backport (~> 1.1)
+      thor (~> 1.0)
+    thor (1.1.0)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  readapt
+
+BUNDLED WITH
+   2.2.6
