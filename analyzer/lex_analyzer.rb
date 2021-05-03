@@ -1,5 +1,6 @@
 require_relative '../static/lex'
 require 'colorize'
+require 'pry'
 
 module Analyzer
   class LexAnalyzer
@@ -112,7 +113,7 @@ module Analyzer
       if token['token'] == 'EOF'
         return {'lexema':'$','token':'$','tipo':'-'}
       end
-      token
+      return token
     end
 
     def atribuicao_tipo(lexema, tipo)

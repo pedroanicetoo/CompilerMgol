@@ -2,6 +2,7 @@ require_relative '../static/lex'
 require_relative '../static/sin'
 require_relative './lex_analyzer'
 require 'colorize'
+require 'pry'
 
 module Analyzer
   class SinAnalyzer
@@ -11,10 +12,7 @@ module Analyzer
     def initialize(file_name)
       @lex = Analyzer::LexAnalyzer.new(file_name)
       @stack = []
-      @stack_sem = []
       @semantic_errors = 0
-      @tx_18 = 0
-      @tx_25 = 0
     end
 
     def instance_tables
@@ -28,13 +26,13 @@ module Analyzer
     def error(a)
       #Indicando erros
       finals = 'simbolos esperados: '
-      s = @stack.pop
+      s = @stack.last
       for terminal in @terminal
         action = @t_analys[s][terminal]
         finals += terminal + '    '  if action != 'erro'
       end
 
-      print(finais)
+      print(finals)
       #tratando erros
 
       while true
@@ -52,19 +50,18 @@ module Analyzer
       end
 
       while true
-        s = pilha.pop
+        s = @stack.last
         if a == false
           return a
         end
-
-        action = @t_analys[s][a['token']]
-
+        action = @t_analys[s][a[:token].to_sym]
+        puts action
         if action[0] == 's' || action[0] == 'r'
-          if a['token'] == 'id'
+          if a[:token] == 'id'
             id = a
             return a
           end
-        elsif a['token'] == '$'
+        elsif a[:token] == '$'
           print('Erro sintatico invalida toda analise sintatica.')
           exit!
         end
@@ -80,15 +77,13 @@ module Analyzer
           break;
         end
 
-        s = @stack.last ##look
-        action = @t_analys[s][a['token']]
-
-        if action[0] == 's'
-          @stack.push action['1'].to_i
-          @stack_sem.push a
+        s = @stack.last
+        action = @t_analys[s][a[:token].to_sym]
+        if action[0] == "s"
+          @stack.push action[1].to_i
           a = @lex.analisador
         elsif action[0] == 'r'
-          regra = @gramatic[(action['1'].to_i) - 1] ## look
+          regra = @gramatic[(action[1].to_i) - 1] ## look
           rule_a = regra['A']
           rule_b = regra['B']
           modulo_B = (rule_b.split).length
@@ -104,8 +99,8 @@ module Analyzer
           break;
         else
           line = @lex.get_l
-          printf("Eroo Sintatico(linha: #{line} )")
-          a = erro(a)
+          printf("Erro Sintatico(linha: #{line})")
+          a = error(a)
         end
       end
     end
