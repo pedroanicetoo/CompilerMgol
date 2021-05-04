@@ -27,11 +27,11 @@ module Analyzer
 
     def token(lexema, estado)
       token = @tokens[estado]
-      obj = {'lexema':lexema,'token':token,'tipo':'-'}
+      obj = {'lexema' => lexema,'token' => token,'tipo' => '-'}
 
       if token == 'id'
         if !(@t_symbols.include? lexema)
-          @t_symbols[lexema]={'lexema':lexema,'token':token,'tipo':'-'}
+          @t_symbols[lexema]={'lexema' => lexema,'token' => token,'tipo' => '-'}
         else
           obj=@t_symbols[lexema]
         end
@@ -64,8 +64,8 @@ module Analyzer
       end
     end
 
-    def error(simbolo,estado, n_linha, n_coluna)
-      print "Erro (#{@n_linha+1},#{@n_coluna+1}):#{@errors[estado]}: #{simbolo}"
+    def error(estado, n_linha, n_coluna)
+      print "\nErro (#{@n_linha+1},#{@n_coluna+1}):#{@errors[estado]}"
     end
 
     def get_l
@@ -85,15 +85,14 @@ module Analyzer
           if @final_states.include? estado_atual
             return token(lex, estado_atual)
           else
-            return error(simbolo,estado_atual, @n_linha, @n_coluna)
+            return error(estado_atual, @n_linha, @n_coluna)
           end
         elsif estado_prox == 0
           lex = ""
           if simbolo == "\n"
             @n_linha += 1
-            if !(@font[@n_linha].nil?)
-              linha = @font[@n_linha]
-            else
+            linha = @font[@n_linha]
+            if linha.nil?
               return token(lex, 22)
             end
             @n_coluna = 0
@@ -111,13 +110,13 @@ module Analyzer
     def analisador
       token = lexema
       if token['token'] == 'EOF'
-        return {'lexema':'$','token':'$','tipo':'-'}
+        return {'lexema' => "$",'token' => "$",'tipo' => '-'}
       end
       return token
     end
 
     def atribuicao_tipo(lexema, tipo)
-      @t_symbols[lexema][:tipo] = tipo
+      @t_symbols[lexema]["tipo"] = tipo
     end
 
     def id_declarado(lexema)
@@ -133,7 +132,7 @@ module Analyzer
         token = lexema
         break if token.nil? || token == false
         print("#{token}\n")
-        break if token[:token] == 'EOF'
+        break if token["token"] == 'EOF'
       end
 
       print("\nTabela de símbolos:\n")

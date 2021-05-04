@@ -26,7 +26,7 @@ module Analyzer
     def error(a)
       #Indicando erros
       finals = 'simbolos esperados: '
-      s = @stack.last
+      s = @stack[-1]
       for terminal in @terminal
         action = @t_analys[s][terminal]
         finals += terminal + '    '  if action != 'erro'
@@ -39,7 +39,7 @@ module Analyzer
         s = @stack.pop
         aux = false
         for rule_a in @not_terminal
-          if @t_analys[s][rule_a] != '-1'
+          unless (@t_analys[s][rule_a] == '-1')
             aux = true
             break;
           end
@@ -50,22 +50,22 @@ module Analyzer
       end
 
       while true
-        s = @stack.last
+        s = @stack[-1]
         if a == false
           return a
         end
-        action = @t_analys[s][a[:token].to_sym]
-        puts action
-        if action[0] == 's' || action[0] == 'r'
-          if a[:token] == 'id'
+        action = @t_analys[s][a["token"]]
+        if action[0] == "s" || action[0] == "r"
+          if a["token"] == "id"
             id = a
             return a
           end
-        elsif a[:token] == '$'
+        elsif a["token"] == '$'
+          print("\n")
           print('Erro sintatico invalida toda analise sintatica.')
           exit!
         end
-        a = @lex.analisador()
+        a = @lex.analisador
       end
     end
 
@@ -77,29 +77,30 @@ module Analyzer
           break;
         end
 
-        s = @stack.last
-        action = @t_analys[s][a[:token].to_sym]
+        s = @stack[-1]
+        action = @t_analys[s][a["token"]]
         if action[0] == "s"
-          @stack.push action[1].to_i
+          @stack.append(action.split('s').last.to_i)
           a = @lex.analisador
         elsif action[0] == 'r'
-          regra = @gramatic[(action[1].to_i) - 1] ## look
+          regra = @gramatic[(action.split('r').last.to_i) - 1] ## look
           rule_a = regra['A']
           rule_b = regra['B']
           modulo_B = (rule_b.split).length
 
-          for i in 0..modulo_B
+          for i in 1..modulo_B
             @stack.pop
           end
 
           t = @stack.last #look
           @stack.push((@t_analys[t][rule_a]).to_i)
-          print('-----------------------------------------\n')
+          print("-----------------------------------------\n")
         elsif action == 'acc'
           break;
         else
           line = @lex.get_l
-          printf("Erro Sintatico(linha: #{line})")
+          print("\n")
+          print("Erro Sintatico(linha: #{line})")
           a = error(a)
         end
       end

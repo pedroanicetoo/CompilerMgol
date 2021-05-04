@@ -69,18 +69,18 @@ class Static
 
   module Symbols
     T_SYMBOLS={}
-    T_SYMBOLS['inicio']={'lexema':'inicio','token':'inicio','tipo':'-'}
-    T_SYMBOLS['varinicio']={'lexema':'varinicio','token':'varinicio','tipo':'-'}
-    T_SYMBOLS['varfim']={'lexema':'varfim','token':'varfim','tipo':'-'}
-    T_SYMBOLS['escreva']={'lexema':'escreva','token':'escreva','tipo':'-'}
-    T_SYMBOLS['leia']={'lexema':'leia','token':'leia','tipo':'-'}
-    T_SYMBOLS['se']={'lexema':'se','token':'se','tipo':'-'}
-    T_SYMBOLS['entao']={'lexema':'entao','token':'entao','tipo':'-'}
-    T_SYMBOLS['fimse']={'lexema':'fimse','token':'fimse','tipo':'-'}
-    T_SYMBOLS['fim']={'lexema':'fim','token':'fim','tipo':'-'}
-    T_SYMBOLS['inteiro']={'lexema':'inteiro','token':'int','tipo':'int'}
-    T_SYMBOLS['lit']={'lexema':'lit','token':'lit','tipo':'lit'}
-    T_SYMBOLS['real']={'lexema':'real','token':'real','tipo':'real'}
+    T_SYMBOLS['inicio']={'lexema' => 'inicio','token' => 'inicio','tipo' => '-'}
+    T_SYMBOLS['varinicio']={'lexema' => 'varinicio','token' => 'varinicio','tipo' => '-'}
+    T_SYMBOLS['varfim']={'lexema' => 'varfim','token' => 'varfim','tipo' => '-'}
+    T_SYMBOLS['escreva']={'lexema' => 'escreva','token' => 'escreva','tipo' => '-'}
+    T_SYMBOLS['leia']={'lexema' => 'leia','token' => 'leia','tipo' => '-'}
+    T_SYMBOLS['se']={'lexema' => 'se','token' => 'se','tipo' => '-'}
+    T_SYMBOLS['entao']={'lexema' => 'entao','token' => 'entao','tipo' => '-'}
+    T_SYMBOLS['fimse']={'lexema' => 'fimse','token' => 'fimse','tipo' => '-'}
+    T_SYMBOLS['fim']={'lexema' => 'fim','token' => 'fim','tipo' => '-'}
+    T_SYMBOLS['inteiro']={'lexema' => 'inteiro','token' => 'int','tipo' => 'int'}
+    T_SYMBOLS['lit']={'lexema' => 'lit','token' => 'lit','tipo' => 'lit'}
+    T_SYMBOLS['real']={'lexema' => 'real','token' => 'real','tipo' => 'real'}
   end
 
   module Tokens
