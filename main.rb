@@ -2,6 +2,7 @@ require_relative 'analyzer/lex_analyzer'
 require_relative 'analyzer/sin_analyzer'
 require_relative 'static/lex'
 require_relative 'static/sin'
+require_relative './writer'
 
 class Main
   include Analyzer
@@ -25,5 +26,5 @@ class Main
   file_name = gets.chomp
   sin = Analyzer::SinAnalyzer.new(file_name)
   sin.instance_tables
-  sin.main
+  sin.perform
 end
