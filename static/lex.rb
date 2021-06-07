@@ -26,7 +26,7 @@ class Static
       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
     ]
-  end
+  end 
 
   module Dictionary
     DIC={}
@@ -77,8 +77,10 @@ class Static
     T_SYMBOLS['se']={'lexema' => 'se','token' => 'se','tipo' => '-'}
     T_SYMBOLS['entao']={'lexema' => 'entao','token' => 'entao','tipo' => '-'}
     T_SYMBOLS['fimse']={'lexema' => 'fimse','token' => 'fimse','tipo' => '-'}
+    T_SYMBOLS['facaAte']={'lexema' => 'facaAte','token' => 'facaAte','tipo' => '-'}
+    T_SYMBOLS['fimFaca']={'lexema' => 'fimFaca','token' => 'fimFaca','tipo' => '-'}
     T_SYMBOLS['fim']={'lexema' => 'fim','token' => 'fim','tipo' => '-'}
-    T_SYMBOLS['inteiro']={'lexema' => 'inteiro','token' => 'int','tipo' => 'int'}
+    T_SYMBOLS['inteiro']={'lexema' => 'inteiro','token' => 'inteiro','tipo' => 'inteiro'}
     T_SYMBOLS['lit']={'lexema' => 'lit','token' => 'lit','tipo' => 'lit'}
     T_SYMBOLS['real']={'lexema' => 'real','token' => 'real','tipo' => 'real'}
   end
@@ -88,7 +90,7 @@ class Static
     TOKENS[1] = 'num'
     TOKENS[3] = 'num'
     TOKENS[6] = 'num'
-    TOKENS[8] = 'literal'
+    TOKENS[8] = 'lit'
     TOKENS[9] = 'id'
     TOKENS[11] = 'comentario'
     TOKENS[22] = 'EOF'

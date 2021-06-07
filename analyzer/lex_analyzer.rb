@@ -64,8 +64,8 @@ module Analyzer
       end
     end
 
-    def error(estado, n_linha, n_coluna)
-      print "\nErro (#{@n_linha+1},#{@n_coluna+1}):#{@errors[estado]}"
+    def error(estado, n_linha, n_coluna, simbolo)
+      print "\nErro (#{@n_linha+1},#{@n_coluna+1}):#{@errors[estado]} -> #{simbolo}".red
     end
 
     def get_l
@@ -85,7 +85,10 @@ module Analyzer
           if @final_states.include? estado_atual
             return token(lex, estado_atual)
           else
-            return error(estado_atual, @n_linha, @n_coluna)
+            if simbolo == nil
+              return token(lex, 22)
+            end
+            return error(estado_atual, @n_linha, @n_coluna, simbolo)
           end
         elsif estado_prox == 0
           lex = ""
@@ -109,7 +112,7 @@ module Analyzer
 
     def analisador
       token = lexema
-      if token['token'] == 'EOF'
+      if token && token['token'] == 'EOF'
         return {'lexema' => "$",'token' => "$",'tipo' => '-'}
       end
       return token
@@ -140,6 +143,5 @@ module Analyzer
         print("#{i}:#{@t_symbols[i]}\n")
       end
     end
-
   end
 end

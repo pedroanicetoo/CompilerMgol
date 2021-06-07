@@ -21,7 +21,6 @@ class Main
   # lex.instance_tables
   # lex.perform!
 
-
   # Sin Analyzer
   file_name = gets.chomp
   sin = Analyzer::SinAnalyzer.new(file_name)

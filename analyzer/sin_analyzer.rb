@@ -55,6 +55,7 @@ module Analyzer
           return a
         end
         action = @t_analys[s][a["token"]]
+        binding.pry
         if action[0] == "s" || action[0] == "r"
           if a["token"] == "id"
             id = a
@@ -73,7 +74,7 @@ module Analyzer
       a = @lex.analisador
       @stack.push 0
       while true
-        if a == false
+        if a == false || a == nil
           break;
         end
 
