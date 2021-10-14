@@ -81,10 +81,8 @@ module Analyzer
         if a == false || a == nil
           break;
         end
-
         s = @stack[-1]
         action = @t_analys[s][a["token"]]
-
         if action[0] == "s"
           @stack.append(action.split('s').last.to_i)
           # @stack_semantic.push a
