@@ -104,6 +104,5 @@ module Writer
 
       final_file.close
     end
-
   end
 end

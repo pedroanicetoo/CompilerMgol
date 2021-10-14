@@ -1,9 +1,9 @@
 inicio
   varinicio
-    lit A;
+    literal A;
     inteiro B;
-    inteiro D;
-    real C ;
+    inteiro C;
+    real D;
   varfim;
   escreva "Digite B";
   leia B;
@@ -16,13 +16,14 @@ inicio
       escreva "B esta entre 2 e 4";
     fimse
   fimse
-
   B<-B+1;
   B<-B+2;
   B<-B+3;
   D<-B;
   C<-5.0;
-  
+  repita (B<5)
+    B<-B+1;
+  fimrepita
   escreva "\nB=\n";
   escreva D;
   escreva "\n";

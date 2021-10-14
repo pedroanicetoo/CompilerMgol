@@ -77,11 +77,11 @@ class Static
     T_SYMBOLS['se']={'lexema' => 'se','token' => 'se','tipo' => '-'}
     T_SYMBOLS['entao']={'lexema' => 'entao','token' => 'entao','tipo' => '-'}
     T_SYMBOLS['fimse']={'lexema' => 'fimse','token' => 'fimse','tipo' => '-'}
-    T_SYMBOLS['facaAte']={'lexema' => 'facaAte','token' => 'facaAte','tipo' => '-'}
-    T_SYMBOLS['fimFaca']={'lexema' => 'fimFaca','token' => 'fimFaca','tipo' => '-'}
+    T_SYMBOLS['repita']={'lexema' => 'repita','token' => 'repita','tipo' => '-'}
+    T_SYMBOLS['fimrepita']={'lexema' => 'fimrepita','token' => 'fimrepita','tipo' => '-'}
     T_SYMBOLS['fim']={'lexema' => 'fim','token' => 'fim','tipo' => '-'}
     T_SYMBOLS['inteiro']={'lexema' => 'inteiro','token' => 'inteiro','tipo' => 'inteiro'}
-    T_SYMBOLS['lit']={'lexema' => 'lit','token' => 'lit','tipo' => 'lit'}
+    T_SYMBOLS['literal']={'lexema' => 'literal','token' => 'literal','tipo' => 'literal'}
     T_SYMBOLS['real']={'lexema' => 'real','token' => 'real','tipo' => 'real'}
   end
 
