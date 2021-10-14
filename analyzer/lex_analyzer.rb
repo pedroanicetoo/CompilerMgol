@@ -72,6 +72,10 @@ module Analyzer
       return @n_linha
     end
 
+    def get_c
+      return @n_coluna
+    end
+
     def lexema
       lex=""
       linha = @font[@n_linha]

@@ -13,7 +13,6 @@ module Analyzer
     def initialize(file_name)
       @lex = Analyzer::LexAnalyzer.new(file_name)
       @stack = []
-      # @stack_semantic = []
       @tx_18 = 0
       @tx_25 = 0
       @semantic_errors = 0
@@ -39,7 +38,6 @@ module Analyzer
 
       print(finals)
       #tratando erros
-
       while true
         s = @stack.pop
         aux = false
@@ -85,7 +83,6 @@ module Analyzer
         action = @t_analys[s][a["token"]]
         if action[0] == "s"
           @stack.append(action.split('s').last.to_i)
-          # @stack_semantic.push a
           a = @lex.analisador
         elsif action[0] == 'r'
           regra = @gramatic[(action.split('r').last.to_i) - 1] ## look
@@ -101,13 +98,11 @@ module Analyzer
           @stack.push((@t_analys[t][rule_a]).to_i)
           print("-----------------------------------------\n")
           print("\n#{rule_a} -> #{rule_b}\n")
-          ##semantic
         elsif action == 'acc'
           break;
         else
-          line = @lex.get_l
           print("\n")
-          print("Erro Sintatico(linha: #{line})")
+          print("Erro Sintatico(linha: #{@lex.get_l + 1}, coluna: #{@lex.get_c + 1})")
           a = error(a)
         end
       end
