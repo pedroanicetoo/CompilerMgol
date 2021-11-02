@@ -60,7 +60,6 @@ module Analyzer
 
       else
         return @t_transictions[estado_atual][@dic[simbolo]]
-
       end
     end
 
@@ -107,6 +106,7 @@ module Analyzer
             @n_coluna += 1
           end
         else
+          binding.pry if simbolo.nil?
           lex << simbolo
           @n_coluna += 1
           estado_atual = estado_prox

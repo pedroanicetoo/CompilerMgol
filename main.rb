@@ -22,6 +22,7 @@ class Main
   # lex.perform!
 
   # Sin Analyzer
+
   sin = Analyzer::SinAnalyzer.new('Mgol_entry')
   sin.instance_tables
   sin.main

@@ -1,6 +1,5 @@
 require_relative '../static/lex'
 require_relative '../static/sin'
-require_relative '../static/sem'
 require_relative './lex_analyzer'
 require 'colorize'
 require 'pry'
@@ -15,13 +14,11 @@ module Analyzer
       @stack = []
       @tx_18 = 0
       @tx_25 = 0
-      @semantic_errors = 0
     end
 
     def instance_tables
       @lex.instance_tables
       @t_analys = Static::TableAnalyse::T_ANALISY
-      @t_semantic = Static::TableSemantic::REGRAS_SEM
       @gramatic = Static::Gramatic::GRAMATIC
       @terminal = Static::Terminal::TERMINAL
       @not_terminal = Static::NotTerminal::NOTERMINAL
@@ -73,7 +70,7 @@ module Analyzer
     end
 
     def main
-      a = @lex.analisador
+      a = @lex.analisador # token
       @stack.push 0
       while true
         if a == false || a == nil

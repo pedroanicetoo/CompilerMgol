@@ -1951,7 +1951,7 @@ class Static
         'se' => 'erro',
         '(' => 'erro',
         ')' => 'erro',
-        ',' => 'erro',
+        ',' => 's51',
         'entao' => 'erro',
         'opr' => 'erro',
         'fimse' => 'erro',
@@ -2371,7 +2371,7 @@ class Static
         'fimse' => 'erro',
         'repita' => 'erro',
         'fimrepita' => 'erro',
-        ';' => 'erro',
+        ';' => 'r7',
         'fim' => 'erro',
         '$' => 'erro',
         'P' => '-1',
@@ -3548,6 +3548,6 @@ class Static
   end
   
   module Terminal
-    TERMINAL = ['inicio','varinicio','varfim','id','inteiro','real','leia','escreva','lit','num','rcb','opm','se','(',')',',','entao','opr','fimse','repita','fimrepita',';','fim','$']
+    TERMINAL = ['inicio','varinicio','varfim','id','inteiro','real','leia','escreva','literal','num','rcb','opm','se','(',')',',','entao','opr','fimse','repita','fimrepita',';','fim','$']
   end
 end
