@@ -1,0 +1,93 @@
+TIPO -> literal
+L -> id
+D -> TIPO L ;
+TIPO -> inteiro
+L -> id
+D -> TIPO L ;
+TIPO -> inteiro
+L -> id
+D -> TIPO L ;
+TIPO -> real
+L -> id
+L -> id , L
+D -> TIPO L ;
+LV -> varfim ;
+LV -> D LV
+LV -> D LV
+LV -> D LV
+LV -> D LV
+V -> varinicio LV
+ARG -> lit
+ES -> escreva ARG ;
+ES -> leia id ;
+ARG -> lit
+ES -> escreva ARG ;
+ES -> leia id ;
+OPRD -> id
+OPRD -> num
+EXP_R -> OPRD opr OPRD
+CAB -> se ( EXP_R ) entao
+OPRD -> id
+OPRD -> num
+EXP_R -> OPRD opr OPRD
+CAB -> se ( EXP_R ) entao
+ARG -> lit
+ES -> escreva ARG ;
+CP -> fimse
+CP -> ES CP
+COND -> CAB CP
+CP -> fimse
+CP -> COND CP
+COND -> CAB CP
+OPRD -> id
+OPRD -> num
+LD -> OPRD opm OPRD
+CMD -> id rcb LD ;
+OPRD -> id
+OPRD -> num
+LD -> OPRD opm OPRD
+CMD -> id rcb LD ;
+OPRD -> id
+OPRD -> num
+LD -> OPRD opm OPRD
+CMD -> id rcb LD ;
+OPRD -> id
+LD -> OPRD
+CMD -> id rcb LD ;
+OPRD -> num
+LD -> OPRD
+CMD -> id rcb LD ;
+OPRD -> num
+LD -> OPRD
+CMD -> id rcb LD ;
+ARG -> lit
+ES -> escreva ARG ;
+ARG -> id
+ES -> escreva ARG ;
+ARG -> lit
+ES -> escreva ARG ;
+ARG -> id
+ES -> escreva ARG ;
+ARG -> lit
+ES -> escreva ARG ;
+ARG -> id
+ES -> escreva ARG ;
+A -> fim
+A -> ES A
+A -> ES A
+A -> ES A
+A -> ES A
+A -> ES A
+A -> ES A
+A -> CMD A
+A -> CMD A
+A -> CMD A
+A -> CMD A
+A -> CMD A
+A -> CMD A
+A -> COND A
+A -> ES A
+A -> ES A
+A -> ES A
+A -> ES A
+P -> inicio V A
