@@ -23,7 +23,7 @@ class Main
 
   # Sin Analyzer
 
-  sin = Analyzer::SinAnalyzer.new('teste2')
+  sin = Analyzer::SinAnalyzer.new('Mgol_entry')
   sin.instance_tables
   sin.main
   sin.out

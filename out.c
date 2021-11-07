@@ -8,14 +8,11 @@ void main(void){
   int T2;
   int T3;
   int T4;
-  int T5;
-  int T6;
-  int T7;
 /*------------------------------*/
-  literal P, A;
+  literal A;
   inteiro B;
   inteiro D;
-  real W, Q, C;
+  real E, C;
 
 
   printf("Digite B");
@@ -37,18 +34,11 @@ void main(void){
   B = T4;
   D = B;
   C = 5.0;
-  T5 = B < 5;
-  while(T5) {
-  T6 = B + 2;
-  D = T6;
+  E = 2.5;
+  printf("\nB=\n");
   printf("%d",D);
-  T7 = B + 1;
-  B = T7;
-  }
-  printf("D=");
-  printf("%d",D);
-  printf("C=");
+  printf("\n");
   printf("%lf",C);
-  printf("A=");
+  printf("\n");
   printf("%s",A);
 }
