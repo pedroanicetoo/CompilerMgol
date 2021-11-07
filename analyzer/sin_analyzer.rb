@@ -14,8 +14,7 @@ module Analyzer
       @lex = Analyzer::LexAnalyzer.new(file_name)
       @stack = []
       @stack_sem = []
-      @tx_20 = 0
-      @tx_27 = 0
+      @tx = 0
       @erros_semanticos = 0
     end
 
@@ -84,7 +83,7 @@ module Analyzer
         action = @t_analys[s][a["classe"]]
         if action[0] == "s"
           @stack.append(action.split('s').last.to_i)
-          @stack_sem.push(a) # semantico
+          @stack_sem.push(a) # empilha simbolo atual na pilha semantica
           a = @lex.analisador
         elsif action[0] == 'r'
           regra = @gramatic[(action.split('r').last.to_i) - 1] ## look
@@ -101,8 +100,10 @@ module Analyzer
           @stack.push((@t_analys[t][rule_a]).to_i)
           print("-----------------------------------------\n")
           print("\n#{rule_a} -> #{rule_b}\n")
-          semantico(rule_number, rule_a, modulo_B) #semantico 
 
+          # CHAMADA DO COMPILADOR SEMANTICO
+          semantico(rule_number, rule_a, modulo_B)
+          # CHAMADA DO COMPILADOR SEMANTICO
         elsif action == 'acc'
           break;
         else
@@ -115,7 +116,7 @@ module Analyzer
 
     def out
       close_file_aux()
-      cabecalho(@tx_20, @tx_27)
+      header(@tx)
     end
   end
 end

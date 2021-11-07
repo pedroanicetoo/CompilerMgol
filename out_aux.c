@@ -1,16 +1,17 @@
-  literal B, A;
+  literal P, A;
   inteiro B;
   inteiro D;
-  real C;
-/*------------------------------*/ 
+  real W, Q, C;
+
+
   printf("Digite B");
   scanf("%d", &B);
   printf("Digite A:");
   scanf("%s", &A);
   T0 = B > 2;
-  if (T0){
+  if(T0) {
   T1 = B <= 4;
-  if (T1){
+  if(T1) {
   printf("B esta entre 2 e 4");
   }
   }
@@ -23,16 +24,12 @@
   D = B;
   C = 5.0;
   T5 = B < 5;
-  while(T5) { 
+  while(T5) {
   T6 = B + 2;
   D = T6;
-  T7 = B <= 4;
-  if (T7){
-  printf("B esta entre 2 e 4");
-  }
   printf("%d",D);
-  T8 = B + 1;
-  B = T8;
+  T7 = B + 1;
+  B = T7;
   }
   printf("D=");
   printf("%d",D);

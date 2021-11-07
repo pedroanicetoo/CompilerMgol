@@ -1,10 +1,8 @@
-require_relative './escritor'
+require_relative './writer'
 
 def semantico(regra, a, modulo_B)
-  # global @stack_sem
-  # global @erros_semanticos
-  # regra_sem = util_sem.regras_sem[regra-1]
-  # print ('Regra Semântica '+ regra_sem + '\n')
+  # pilha semantica -> @stack_sem
+  # contador de variáveis temporárias @tx
   simbolos = {}
   if regra == 20 || regra == 27 # (20) LD -> OPRD opm OPRD | (27) EXP_R -> OPRD opr OPRD
     aux = @stack_sem.pop
@@ -32,10 +30,10 @@ def semantico(regra, a, modulo_B)
     id = simbolos['id']
     type = @stack_sem.select{|x| x if x['classe'] == 'TIPO'}.last
     @lex.atribuicao_tipo(id['lexema'], type['tipo'])
-    if regra == 7
+    if regra == 7 # L→ id vir L
       id_pt_v(id['lexema'])
     end
-    if regra == 8
+    if regra == 8 # L→ id
       write_type(id['lexema'])
     end
   elsif regra == 9 # TIPO→ inteiro
@@ -63,7 +61,7 @@ def semantico(regra, a, modulo_B)
     end
   elsif regra == 14  # ES→ escreva ARG pt_v
     arg = simbolos['ARG']
-    escreva(arg)
+    printf_writer(arg)
   elsif regra == 15  # ARG→ lit
     lit = simbolos['lit']
     s['lexema'] = lit['lexema']
@@ -99,7 +97,7 @@ def semantico(regra, a, modulo_B)
         @erros_semanticos += 1
     end
   elsif regra == 20 # LD→ OPRD opm OPRD
-    tx = 'T' + @tx_20.to_s
+    tx = 'T' + @tx.to_s
 
     oprd1 = simbolos['OPRD1']
     oprd2 = simbolos['OPRD2']
@@ -108,7 +106,7 @@ def semantico(regra, a, modulo_B)
         s['lexema'] = tx
         s['tipo'] = 'inteiro'
  
-        @tx_20 = @tx_20 + 1
+        @tx = @tx + 1
 
         opm = simbolos['opm']
         opm_writer(tx, oprd1['lexema'], opm['lexema'], oprd2['lexema'])
@@ -145,10 +143,10 @@ def semantico(regra, a, modulo_B)
     oprd2 = simbolos['OPRD2']
     tipos_equivalentes = ['num', 'inteiro', 'real']
     if ((oprd1['tipo'] == oprd2['tipo']) || (tipos_equivalentes.include?(oprd1['tipo']) && tipos_equivalentes.include?(oprd2['tipo'])))
-        tx = 'T' + @tx_20.to_s
+        tx = 'T' + @tx.to_s
         s['lexema'] = tx
         s['tipo'] = 'boolean'
-        @tx_20 = @tx_20 + 1
+        @tx = @tx + 1
         opr = simbolos['opr']
         opr_writer(tx, oprd1['lexema'], opr['lexema'], oprd2['lexema'])
         if @stack_sem[-2] && @stack_sem[-2]['lexema'] == 'repita'

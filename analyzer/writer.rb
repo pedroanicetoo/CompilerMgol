@@ -8,8 +8,7 @@ def close_file_aux
 end
 
 def varfim()
-    @file << ";\n"
-    @file << "/*------------------------------*/ \n"
+    @file << ";\n\n\n"
 end
 
 def write_type(lexema)
@@ -18,19 +17,19 @@ end
 
 def w_type(type, st = nil)
     @file << ";" unless st
-    @file << "  " + type + " " if st
-    @file << "\n  " + type + " " if !st
+    @file << "  #{type} " if st
+    @file << "\n  #{type} "if !st
 end
 
 def id_pt_v(lexema)
-    @file << ", " + lexema
+    @file << ", #{lexema}"
 end
 
 def scanf(t, lexema)
     @file << '  scanf("%' + t + '", &' + lexema + ");\n"
 end
 
-def escreva(arg)
+def printf_writer(arg)
     if arg['tipo'] == 'literal'
         text = '  printf("%s",' + arg['lexema'] + ");\n"
     elsif arg['tipo'] == 'real' || arg['tipo'] == 'num'
@@ -44,11 +43,11 @@ def escreva(arg)
 end
 
 def rcb_writer(id, rcb, ld)
-    @file << '  ' + id + ' ' + rcb + ' ' + ld + ";\n"
+    @file << "  #{id} #{rcb} #{ld};\n"
 end
 
 def opm_writer(tx, oprd1, opm, oprd2)
-    @file << '  ' + tx + ' = ' + oprd1 + ' ' + opm + ' ' + oprd2 + ";\n"
+    @file << "  #{tx} = #{oprd1} #{opm} #{oprd2};\n"
 end
 
 def fim_cond_rep()
@@ -56,20 +55,20 @@ def fim_cond_rep()
 end
 
 def ini_cond(exp_r)
-    @file << '  if (' + exp_r + "){\n"
+    @file << "  if(#{exp_r}) {\n"
 end
 
 def ini_rep(tx)
-    @file << "  while(#{tx}) { \n"
+    @file << "  while(#{tx}) {\n"
 end
 
 def opr_writer(tx, oprd1, opr, oprd2)
     if opr == '='
-        @file << "  " + tx + ' = ' + oprd1 + ' == ' + oprd2 + ";\n"
+        @file << "  #{tx} = #{oprd1} == #{oprd2};\n"
     elsif opr == '<>'
-        @file << "  " + tx + ' = ' + oprd1 + ' != ' + oprd2 + ";\n"
+        @file << "  #{tx} = #{oprd1} != #{oprd2};\n"
     else
-        @file << "  " + tx + " = " + oprd1 + " " + opr + " " + oprd2 + ";\n"
+        @file << "  #{tx} = #{oprd1} #{opr} #{oprd2};\n"
     end
 end
 
@@ -77,7 +76,7 @@ def close_file()
     @file.close()
 end
 
-def cabecalho(tx_20, tx_27)
+def header(tx)
     out_aux = File.open('out_aux.c', 'r')
     traducao = out_aux.readlines()
     arq_final = File.open('out.c', 'w')
@@ -86,10 +85,10 @@ def cabecalho(tx_20, tx_27)
     arq_final << "typedef char literal[256];\n"
     arq_final << "void main(void){\n"
 
-    arq_final.write("\n/*----Variaveis temporarias----*/\n")
+    arq_final << "\n/*----Variaveis temporarias----*/\n"
 
-    for i in 0..(tx_20 - 1)
-        arq_final << '  int T' + i.to_s + ";\n"
+    for i in 0..(tx - 1)
+        arq_final << "  int T#{i.to_s};\n"
     end
 
     arq_final << "/*------------------------------*/\n" 

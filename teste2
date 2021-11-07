@@ -2,13 +2,13 @@ inicio
 
 varinicio
 
-literal A,B;
+literal A, P;
 
 inteiro B;
 
 inteiro D;
 
-real C ;
+real C, Q, W;
 
 varfim;
 
@@ -47,14 +47,6 @@ C<-5.0;
 repita (B<5)
 
 D<-B+2;
-
-se(B<=4)
-
-entao
-
-escreva "B esta entre 2 e 4";
-
-fimse
 
 escreva D;
 
