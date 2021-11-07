@@ -51,12 +51,16 @@ def opm_writer(tx, oprd1, opm, oprd2)
     @file << '  ' + tx + ' = ' + oprd1 + ' ' + opm + ' ' + oprd2 + ";\n"
 end
 
-def fim_cond()
+def fim_cond_rep()
     @file << "  }\n"
 end
 
 def ini_cond(exp_r)
     @file << '  if (' + exp_r + "){\n"
+end
+
+def ini_rep(tx)
+    @file << "  while(#{tx}) { \n"
 end
 
 def opr_writer(tx, oprd1, opr, oprd2)

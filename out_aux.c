@@ -1,7 +1,7 @@
-  literal A;
+  literal B, A;
   inteiro B;
   inteiro D;
-  real E, C;
+  real C;
 /*------------------------------*/ 
   printf("Digite B");
   scanf("%d", &B);
@@ -22,10 +22,17 @@
   B = T4;
   D = B;
   C = 5.0;
-  E = 2.5;
-  printf("\nB=\n");
+  T5 = B < 5;
+  while(T5) { 
+  T6 = B + 2;
+  D = T6;
   printf("%d",D);
-  printf("\n");
+  T7 = B + 1;
+  B = T7;
+  }
+  printf("D=");
+  printf("%d",D);
+  printf("C=");
   printf("%lf",C);
-  printf("\n");
+  printf("A=");
   printf("%s",A);
