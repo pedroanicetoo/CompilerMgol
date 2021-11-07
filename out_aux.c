@@ -26,9 +26,13 @@
   while(T5) { 
   T6 = B + 2;
   D = T6;
+  T7 = B <= 4;
+  if (T7){
+  printf("B esta entre 2 e 4");
+  }
   printf("%d",D);
-  T7 = B + 1;
-  B = T7;
+  T8 = B + 1;
+  B = T8;
   }
   printf("D=");
   printf("%d",D);

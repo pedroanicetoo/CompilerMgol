@@ -48,6 +48,14 @@ repita (B<5)
 
 D<-B+2;
 
+se(B<=4)
+
+entao
+
+escreva "B esta entre 2 e 4";
+
+fimse
+
 escreva D;
 
 B<-B+1;

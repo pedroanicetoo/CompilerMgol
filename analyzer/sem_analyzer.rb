@@ -151,7 +151,7 @@ def semantico(regra, a, modulo_B)
         @tx_20 = @tx_20 + 1
         opr = simbolos['opr']
         opr_writer(tx, oprd1['lexema'], opr['lexema'], oprd2['lexema'])
-        if @stack_sem.select{|x| x['lexema'] == 'repita'}.length > 0
+        if @stack_sem[-2] && @stack_sem[-2]['lexema'] == 'repita'
           ini_rep(tx)
         end
     else
