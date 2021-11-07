@@ -72,20 +72,20 @@ class Static
 
   module Symbols
     T_SYMBOLS={}
-    T_SYMBOLS['inicio']={'lexema' => 'inicio','token' => 'inicio','tipo' => '-'}
-    T_SYMBOLS['varinicio']={'lexema' => 'varinicio','token' => 'varinicio','tipo' => '-'}
-    T_SYMBOLS['varfim']={'lexema' => 'varfim','token' => 'varfim','tipo' => '-'}
-    T_SYMBOLS['escreva']={'lexema' => 'escreva','token' => 'escreva','tipo' => '-'}
-    T_SYMBOLS['leia']={'lexema' => 'leia','token' => 'leia','tipo' => '-'}
-    T_SYMBOLS['se']={'lexema' => 'se','token' => 'se','tipo' => '-'}
-    T_SYMBOLS['entao']={'lexema' => 'entao','token' => 'entao','tipo' => '-'}
-    T_SYMBOLS['fimse']={'lexema' => 'fimse','token' => 'fimse','tipo' => '-'}
-    T_SYMBOLS['repita']={'lexema' => 'repita','token' => 'repita','tipo' => '-'}
-    T_SYMBOLS['fimrepita']={'lexema' => 'fimrepita','token' => 'fimrepita','tipo' => '-'}
-    T_SYMBOLS['fim']={'lexema' => 'fim','token' => 'fim','tipo' => '-'}
-    T_SYMBOLS['inteiro']={'lexema' => 'inteiro','token' => 'inteiro','tipo' => 'inteiro'}
-    T_SYMBOLS['literal']={'lexema' => 'literal','token' => 'literal','tipo' => 'literal'}
-    T_SYMBOLS['real']={'lexema' => 'real','token' => 'real','tipo' => 'real'}
+    T_SYMBOLS['inicio']={'lexema' => 'inicio','classe' => 'inicio','tipo' => '-'}
+    T_SYMBOLS['varinicio']={'lexema' => 'varinicio','classe' => 'varinicio','tipo' => '-'}
+    T_SYMBOLS['varfim']={'lexema' => 'varfim','classe' => 'varfim','tipo' => '-'}
+    T_SYMBOLS['escreva']={'lexema' => 'escreva','classe' => 'escreva','tipo' => '-'}
+    T_SYMBOLS['leia']={'lexema' => 'leia','classe' => 'leia','tipo' => '-'}
+    T_SYMBOLS['se']={'lexema' => 'se','classe' => 'se','tipo' => '-'}
+    T_SYMBOLS['entao']={'lexema' => 'entao','classe' => 'entao','tipo' => '-'}
+    T_SYMBOLS['fimse']={'lexema' => 'fimse','classe' => 'fimse','tipo' => '-'}
+    T_SYMBOLS['repita']={'lexema' => 'repita','classe' => 'repita','tipo' => '-'}
+    T_SYMBOLS['fimrepita']={'lexema' => 'fimrepita','classe' => 'fimrepita','tipo' => '-'}
+    T_SYMBOLS['fim']={'lexema' => 'fim','classe' => 'fim','tipo' => '-'}
+    T_SYMBOLS['inteiro']={'lexema' => 'inteiro','classe' => 'inteiro','tipo' => 'inteiro'}
+    T_SYMBOLS['literal']={'lexema' => 'literal','classe' => 'literal','tipo' => 'literal'}
+    T_SYMBOLS['real']={'lexema' => 'real','classe' => 'real','tipo' => 'real'}
   end
 
   module Tokens

@@ -3502,44 +3502,44 @@ class Static
 
   module Gramatic
     GRAMATIC = [
-      {'A' => "P'",'B' =>  'P'},
-      {'A' => 'P','B' => 'inicio V A'},
-      {'A' => 'V','B' => 'varinicio LV'},
-      {'A' => 'LV','B' => 'D LV'},
-      {'A' => 'LV','B' => 'varfim ;'},
-      {'A' => 'D','B' => 'TIPO L ;'},
-      {'A' => 'L', 'B' => 'id , L' },
-      {'A' => 'L', 'B' => 'id' },
-      {'A' => 'TIPO', 'B' => 'inteiro' },
-      {'A' => 'TIPO', 'B' => 'real' },
-      {'A' => 'TIPO', 'B' => 'literal' },
-      {'A' => 'A', 'B' => 'ES A'},
-      {'A' => 'ES', 'B' => 'leia id ;' },
-      {'A' => 'ES', 'B' => 'escreva ARG ;' }, 
-      {'A' => 'ARG', 'B' => 'lit' }, 
-      {'A' => 'ARG', 'B' => 'num' }, 
-      {'A' => 'ARG', 'B' => 'id' }, 
-      {'A' => 'A', 'B' => 'CMD A' }, 
-      {'A' => 'CMD', 'B' => 'id rcb LD ;' }, 
-      {'A' => 'LD', 'B' => 'OPRD opm OPRD' }, 
-      {'A' => 'LD', 'B' => 'OPRD' }, 
-      {'A' => 'OPRD', 'B' => 'id' }, 
-      {'A' => 'OPRD', 'B' => 'num' }, 
-      {'A' => 'A', 'B' => 'COND A' }, 
-      {'A' => 'COND', 'B' => 'CAB CP' }, 
-      {'A' => 'CAB', 'B' => 'se ( EXP_R ) entao' }, 
-      {'A' => 'EXP_R', 'B' => 'OPRD opr OPRD' }, 
-      {'A' => 'CP', 'B' => 'ES CP' }, 
-      {'A' => 'CP', 'B' => 'CMD CP' }, 
-      {'A' => 'CP', 'B' => 'COND CP' }, 
-      {'A' => 'CP', 'B' => 'fimse' }, 
-      {'A' => 'A', 'B' => 'R A' }, 
-      {'A' => 'R', 'B' => 'repita ( EXP_R ) CP_R' }, 
-      {'A' => 'CP_R', 'B' => 'ES CP_R' }, 
-      {'A' => 'CP_R', 'B' => 'CMD CP_R' }, 
-      {'A' => 'CP_R', 'B' => 'COND CP_R' }, 
-      {'A' => 'CP_R', 'B' => 'fimrepita' }, 
-      {'A' => 'A', 'B' => 'fim' }
+      {'A' => "P'",'B' =>  'P'},# 1
+      {'A' => 'P','B' => 'inicio V A'},# 2
+      {'A' => 'V','B' => 'varinicio LV'},# 3
+      {'A' => 'LV','B' => 'D LV'},# 4
+      {'A' => 'LV','B' => 'varfim ;'},# 5
+      {'A' => 'D','B' => 'TIPO L ;'},# 6
+      {'A' => 'L', 'B' => 'id , L' },# 7
+      {'A' => 'L', 'B' => 'id' },# 8
+      {'A' => 'TIPO', 'B' => 'inteiro' },# 9
+      {'A' => 'TIPO', 'B' => 'real' },# 10
+      {'A' => 'TIPO', 'B' => 'literal' },# 11
+      {'A' => 'A', 'B' => 'ES A'},# 12
+      {'A' => 'ES', 'B' => 'leia id ;' },# 13
+      {'A' => 'ES', 'B' => 'escreva ARG ;' },# 14 
+      {'A' => 'ARG', 'B' => 'lit' },# 15
+      {'A' => 'ARG', 'B' => 'num' },# 16
+      {'A' => 'ARG', 'B' => 'id' },# 17
+      {'A' => 'A', 'B' => 'CMD A' },# 18 
+      {'A' => 'CMD', 'B' => 'id rcb LD ;' },# 19 
+      {'A' => 'LD', 'B' => 'OPRD opm OPRD' },# 20
+      {'A' => 'LD', 'B' => 'OPRD' },# 21
+      {'A' => 'OPRD', 'B' => 'id' },# 22
+      {'A' => 'OPRD', 'B' => 'num' },# 23
+      {'A' => 'A', 'B' => 'COND A' },# 24
+      {'A' => 'COND', 'B' => 'CAB CP' },# 25
+      {'A' => 'CAB', 'B' => 'se ( EXP_R ) entao' },# 26 
+      {'A' => 'EXP_R', 'B' => 'OPRD opr OPRD' },# 27
+      {'A' => 'CP', 'B' => 'ES CP' },# 28
+      {'A' => 'CP', 'B' => 'CMD CP' },# 29
+      {'A' => 'CP', 'B' => 'COND CP' },# 30
+      {'A' => 'CP', 'B' => 'fimse' },# 31
+      {'A' => 'A', 'B' => 'R A' },# 32
+      {'A' => 'R', 'B' => 'repita ( EXP_R ) CP_R' },# 33 
+      {'A' => 'CP_R', 'B' => 'ES CP_R' },# 34
+      {'A' => 'CP_R', 'B' => 'CMD CP_R' },# 35 
+      {'A' => 'CP_R', 'B' => 'COND CP_R' },# 36
+      {'A' => 'CP_R', 'B' => 'fimrepita' },# 37
+      {'A' => 'A', 'B' => 'fim' }# 38
     ]
   end
 

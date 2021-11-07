@@ -1,6 +1,7 @@
 require_relative '../static/lex'
 require_relative '../static/sin'
 require_relative './lex_analyzer'
+require_relative './sem_analyzer'
 require 'colorize'
 require 'pry'
 
@@ -12,8 +13,10 @@ module Analyzer
     def initialize(file_name)
       @lex = Analyzer::LexAnalyzer.new(file_name)
       @stack = []
-      @tx_18 = 0
-      @tx_25 = 0
+      @stack_sem = []
+      @tx_20 = 0
+      @tx_27 = 0
+      @erros_semanticos = 0
     end
 
     def instance_tables
@@ -54,13 +57,13 @@ module Analyzer
         if a == false
           return a
         end
-        action = @t_analys[s][a["token"]]
+        action = @t_analys[s][a["classe"]]
         if action[0] == "s" || action[0] == "r"
-          if a["token"] == "id"
-            id = a if a["token"] == "id"
+          if a["classe"] == "id"
+            id = a if a["classe"] == "id"
           end
           return a
-        elsif a["token"] == '$'
+        elsif a["classe"] == '$'
           print("\n")
           print('Erro sintatico invalida toda analise sintatica.')
           exit!
@@ -70,6 +73,7 @@ module Analyzer
     end
 
     def main
+      instance_file_aux() # Arquivo auxiliar
       a = @lex.analisador # token
       @stack.push 0
       while true
@@ -77,12 +81,14 @@ module Analyzer
           break;
         end
         s = @stack[-1]
-        action = @t_analys[s][a["token"]]
+        action = @t_analys[s][a["classe"]]
         if action[0] == "s"
           @stack.append(action.split('s').last.to_i)
+          @stack_sem.push(a) # semantico
           a = @lex.analisador
         elsif action[0] == 'r'
           regra = @gramatic[(action.split('r').last.to_i) - 1] ## look
+          rule_number = action.split('r').last.to_i
           rule_a = regra['A']
           rule_b = regra['B']
           modulo_B = (rule_b.split).length
@@ -95,6 +101,8 @@ module Analyzer
           @stack.push((@t_analys[t][rule_a]).to_i)
           print("-----------------------------------------\n")
           print("\n#{rule_a} -> #{rule_b}\n")
+          semantico(rule_number, rule_a, modulo_B) #semantico 
+
         elsif action == 'acc'
           break;
         else
@@ -103,6 +111,11 @@ module Analyzer
           a = error(a)
         end
       end
+    end
+
+    def out
+      close_file_aux()
+      cabecalho(@tx_20, @tx_27)
     end
   end
 end

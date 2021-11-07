@@ -5,7 +5,7 @@ require 'pry'
 module Analyzer
   class LexAnalyzer
 
-    attr_reader :file
+    attr_reader :file, :f, :font, :digits, :letters, :dic, :tokens, :t_symbols, :t_transictions, :errors, :final_states, :n_linha, :n_coluna
 
     def initialize(file)
       @f = open(file, 'r')
@@ -27,11 +27,11 @@ module Analyzer
 
     def token(lexema, estado)
       token = @tokens[estado]
-      obj = {'lexema' => lexema,'token' => token,'tipo' => '-'}
+      obj = {'lexema' => lexema,'classe' => token,'tipo' => '-'}
 
       if token == 'id'
         if !(@t_symbols.include? lexema)
-          @t_symbols[lexema]={'lexema' => lexema,'token' => token,'tipo' => '-'}
+          @t_symbols[lexema]={'lexema' => lexema,'classe' => token,'tipo' => '-'}
         else
           obj=@t_symbols[lexema]
         end
@@ -64,7 +64,7 @@ module Analyzer
     end
 
     def error(estado, n_linha, n_coluna, simbolo)
-      print "\nErro (#{@n_linha+1},#{@n_coluna+1}):#{@errors[estado]} -> #{simbolo}".red
+      print "\nErro (#{@n_linha+1},#{@n_coluna+1}):#{@errors[estado]} -> #{simbolo}\n".red
     end
 
     def get_l
@@ -91,7 +91,8 @@ module Analyzer
             if simbolo == nil
               return token(lex, 22)
             end
-            return error(estado_atual, @n_linha, @n_coluna, simbolo)
+            @n_coluna += 1
+            error(estado_atual, @n_linha, @n_coluna, simbolo)
           end
         elsif estado_prox == 0
           lex = ""
@@ -116,8 +117,8 @@ module Analyzer
 
     def analisador
       token = lexema
-      if token && token['token'] == 'EOF'
-        return {'lexema' => "$",'token' => "$",'tipo' => '-'}
+      if token && token['classe'] == 'EOF'
+        return {'lexema' => "$",'classe' => "$",'tipo' => '-'}
       end
       return token
     end
@@ -127,8 +128,8 @@ module Analyzer
     end
 
     def id_declarado(lexema)
-      if @t_symbols.include? lexema
-        return @t_symbols[lexema] == '-'
+      if @t_symbols.keys.include? lexema
+        return %w[inteiro real literal].include? @t_symbols[lexema]['tipo']
       end
       false
     end
@@ -139,7 +140,7 @@ module Analyzer
         token = lexema
         break if token.nil? || token == false
         print("#{token}\n")
-        break if token["token"] == 'EOF'
+        break if token["classe"] == 'EOF'
       end
 
       print("\nTabela de símbolos:\n")
