@@ -29,15 +29,27 @@ OPRD -> id
 OPRD -> num
 EXP_R -> OPRD opr OPRD
 CAB -> se ( EXP_R ) entao
+
+# INICIO CORPO DO se
+
 OPRD -> id
 OPRD -> num
-EXP_R -> OPRD opr OPRD
+EXP_R -> OPRD opr OPRD (TRATAMENTO DO exp_r)
 CAB -> se ( EXP_R ) entao
+
+# INICIO CORPO DO se
+
 ARG -> lit
 ES -> escreva ARG ;
+
+# FIM CORPO DO se
+
 CP -> fimse
 CP -> ES CP
 COND -> CAB CP
+
+# FIM CORPO DO se
+
 CP -> fimse
 CP -> COND CP
 COND -> CAB CP
@@ -61,9 +73,7 @@ LD -> OPRD
 CMD -> id rcb LD ;
 OPRD -> id
 OPRD -> num
-EXP_R -> OPRD opr OPRD
-
-(TRATAMENTO DO repita)
+EXP_R -> OPRD opr OPRD (TRATAMENTO DO exp_r/repita)
 
 # INICIO CORPO DO REPITA
 
