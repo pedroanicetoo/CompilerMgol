@@ -1,6 +1,6 @@
 require_relative './writer'
 
-def semantico(regra, a, modulo_B)
+def semantico(regra, a, modulo_B) # (Número da regra, Regra à esquerda, número de simbolos à direita)
   # pilha semantica -> @stack_sem
   # contador de variáveis temporárias @tx
   simbolos = {}
@@ -11,7 +11,7 @@ def semantico(regra, a, modulo_B)
     simbolos[aux['classe']] = aux
     aux = @stack_sem.pop
     simbolos['OPRD1'] = aux
-   else
+  else
     for i in (1..modulo_B)
       aux = @stack_sem.pop
       simbolos[aux['classe']] = aux
@@ -20,9 +20,7 @@ def semantico(regra, a, modulo_B)
 
   s = {'classe' => a}
 
-  if @stack_sem.last
-    st = (@stack_sem.last['classe'] == 'varinicio')
-  end
+  st = (@stack_sem.last['classe'] == 'varinicio') if @stack_sem.last
 
   if regra == 5  # LV→ varfim pt_v
     varfim()
@@ -31,7 +29,7 @@ def semantico(regra, a, modulo_B)
     type = @stack_sem.select{|x| x if x['classe'] == 'TIPO'}.last
     @lex.atribuicao_tipo(id['lexema'], type['tipo'])
     if regra == 7 # L→ id vir L
-      id_pt_v(id['lexema'])
+      write_id_vir(id['lexema'])
     end
     if regra == 8 # L→ id
       write_type(id['lexema'])
@@ -149,6 +147,8 @@ def semantico(regra, a, modulo_B)
         @tx = @tx + 1
         opr = simbolos['opr']
         opr_writer(tx, oprd1['lexema'], opr['lexema'], oprd2['lexema'])
+
+        # Tratamento do Repita
         if @stack_sem[-2] && @stack_sem[-2]['lexema'] == 'repita'
           ini_rep(tx)
         end

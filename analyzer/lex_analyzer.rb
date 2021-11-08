@@ -127,9 +127,9 @@ module Analyzer
       @t_symbols[lexema]["tipo"] = tipo
     end
 
-    def id_declarado(lexema)
-      if @t_symbols.keys.include? lexema
-        return %w[inteiro real literal].include? @t_symbols[lexema]['tipo']
+    def id_declarado(id)
+      if @t_symbols.keys.include? id
+        return %w[inteiro real literal].include? @t_symbols[id]['tipo']
       end
       false
     end

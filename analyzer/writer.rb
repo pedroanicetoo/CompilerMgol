@@ -16,12 +16,11 @@ def write_type(lexema)
 end
 
 def w_type(type, st = nil)
-    @file << ";" unless st
     @file << "  #{type} " if st
-    @file << "\n  #{type} "if !st
+    @file << ";\n  #{type} " if !st
 end
 
-def id_pt_v(lexema)
+def write_id_vir(lexema)
     @file << ", #{lexema}"
 end
 
@@ -67,7 +66,7 @@ def opr_writer(tx, oprd1, opr, oprd2)
         @file << "  #{tx} = #{oprd1} == #{oprd2};\n"
     elsif opr == '<>'
         @file << "  #{tx} = #{oprd1} != #{oprd2};\n"
-    else
+    else # > < 
         @file << "  #{tx} = #{oprd1} #{opr} #{oprd2};\n"
     end
 end

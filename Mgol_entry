@@ -1,6 +1,6 @@
 inicio
 varinicio
-literal A;
+lit A;
 inteiro B;
 inteiro D;
 real C, E ;
@@ -21,7 +21,7 @@ B<-B+2;
 B<-B+3;
 D<-B;
 C<-5.0;
-E<-2.5;
+ E<-2.5;
 escreva "\nB=\n";
 escreva D;
 escreva "\n";

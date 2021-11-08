@@ -1,5 +1,6 @@
 TIPO -> literal
 L -> id
+L -> id , L
 D -> TIPO L ;
 TIPO -> inteiro
 L -> id
@@ -9,6 +10,7 @@ L -> id
 D -> TIPO L ;
 TIPO -> real
 L -> id
+L -> id , L
 L -> id , L
 D -> TIPO L ;
 LV -> varfim ;
@@ -57,9 +59,38 @@ CMD -> id rcb LD ;
 OPRD -> num
 LD -> OPRD
 CMD -> id rcb LD ;
+OPRD -> id
 OPRD -> num
-LD -> OPRD
+EXP_R -> OPRD opr OPRD
+
+(TRATAMENTO DO repita)
+
+# INICIO CORPO DO REPITA
+
+OPRD -> id
+OPRD -> num
+LD -> OPRD opm OPRD
 CMD -> id rcb LD ;
+ARG -> id
+ES -> escreva ARG ;
+OPRD -> id
+OPRD -> num
+LD -> OPRD opm OPRD
+CMD -> id rcb LD ;
+
+# FIM CORPO DO REPITA
+
+CP_R -> fimrepita
+
+# INICIO CORPO DO REPITA
+
+CP_R -> CMD CP_R
+CP_R -> ES CP_R
+CP_R -> CMD CP_R
+
+# FIM CORPO DO REPITA
+
+R -> repita ( EXP_R ) CP_R
 ARG -> lit
 ES -> escreva ARG ;
 ARG -> id
@@ -79,7 +110,7 @@ A -> ES A
 A -> ES A
 A -> ES A
 A -> ES A
-A -> CMD A
+A -> R A
 A -> CMD A
 A -> CMD A
 A -> CMD A
