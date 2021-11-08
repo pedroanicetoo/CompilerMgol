@@ -16,8 +16,13 @@ def write_type(lexema)
 end
 
 def w_type(type, st = nil)
-    @file << "  #{type} " if st
-    @file << ";\n  #{type} " if !st
+    type_c = 'int' if type == 'inteiro'
+    type_c = 'double' if type == 'real'
+    type_c = "literal" if type == 'literal'
+
+    # checando se esta no começo
+    @file << "  #{type_c} " if st
+    @file << ";\n  #{type_c} " if !st
 end
 
 def write_id_vir(lexema)
@@ -66,7 +71,7 @@ def opr_writer(tx, oprd1, opr, oprd2)
         @file << "  #{tx} = #{oprd1} == #{oprd2};\n"
     elsif opr == '<>'
         @file << "  #{tx} = #{oprd1} != #{oprd2};\n"
-    else # > < 
+    else # > <
         @file << "  #{tx} = #{oprd1} #{opr} #{oprd2};\n"
     end
 end
@@ -90,7 +95,7 @@ def header(tx)
         arq_final << "  int T#{i.to_s};\n"
     end
 
-    arq_final << "/*------------------------------*/\n" 
+    arq_final << "/*------------------------------*/\n"
 
     for c in traducao
         arq_final << c

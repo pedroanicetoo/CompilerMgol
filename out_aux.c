@@ -1,7 +1,7 @@
   literal A;
-  inteiro B;
-  inteiro D;
-  real E, C;
+  int B;
+  int D;
+  double E, C;
 
 
   printf("Digite B");
