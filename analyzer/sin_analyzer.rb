@@ -15,6 +15,7 @@ module Analyzer
       @stack = []
       @stack_sem = []
       @tx = 0
+      @erros_sintaticos = 0
       @erros_semanticos = 0
     end
 
@@ -109,14 +110,21 @@ module Analyzer
         else
           print("\n")
           print("Erro Sintatico(linha: #{@lex.get_l + 1}, coluna: #{@lex.get_c + 1})")
+          @erros_sintaticos+=1
           a = error(a)
         end
       end
     end
 
     def out
-      close_file_aux()
-      header(@tx)
+      if @lex.erros_lexicos + @erros_sintaticos + @erros_semanticos > 0
+        print("\n---------------> TOTAIS ERROS LEXICOS:#{@lex.erros_lexicos}\n")
+        print("\n---------------> TOTAIS ERROS SINTATICOS:#{@erros_sintaticos}\n")
+        print("\n---------------> TOTAIS ERROS SEMANTICOS:#{@erros_semanticos}\n")
+      else
+        close_file_aux()
+        header(@tx)
+      end
     end
   end
 end

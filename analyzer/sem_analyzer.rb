@@ -54,12 +54,12 @@ def semantico(regra, a, modulo_B) # (Número da regra, Regra à esquerda, númer
         scanf('lf', id['lexema'])
       end
     else
-        print('\n-->Erro Variável não declarada.\n')
+        print("\n-->Erro Variável não declarada.(linha: #{@lex.get_l}, coluna: #{@lex.get_c})\n")
         @erros_semanticos += 1
     end
   elsif regra == 14  # ES→ escreva ARG pt_v
     arg = simbolos['ARG']
-    printf_writer(arg)
+    printf_writer(arg) if arg['lexema']
   elsif regra == 15  # ARG→ lit
     lit = simbolos['lit']
     s['lexema'] = lit['lexema']
@@ -75,7 +75,7 @@ def semantico(regra, a, modulo_B) # (Número da regra, Regra à esquerda, númer
         s['lexema'] = id_arg['lexema']
         s['tipo'] = id_arg['tipo']
     else
-        print('\n-->Erro Variável não declarada.\n')
+        print("\n-->Erro Variável não declarada.(linha: #{@lex.get_l}, coluna: #{@lex.get_c})\n")
         @erros_semanticos += 1
     end
   elsif regra == 19 # CMD→ id rcb LD pt_v
@@ -91,7 +91,7 @@ def semantico(regra, a, modulo_B) # (Número da regra, Regra à esquerda, númer
           @erros_semanticos += 1
         end
     else
-        print("\n-->Erro Variável não declarada.\n")
+        print("\n-->Erro Variável não declarada.(linha: #{@lex.get_l}, coluna: #{@lex.get_c})\n")
         @erros_semanticos += 1
     end
   elsif regra == 20 # LD→ OPRD opm OPRD
@@ -111,7 +111,7 @@ def semantico(regra, a, modulo_B) # (Número da regra, Regra à esquerda, númer
     else
         s['lexema'] = tx
         s['tipo'] = 'num'
-        print('\n-->Erro Operandos com tipos incompatíveis.\n')
+        print("\n-->Erro Operandos com tipos incompatíveis.(linha: #{@lex.get_l}, coluna: #{@lex.get_c})\n")
         @erros_semanticos += 1
     end
   elsif regra == 21 # LD→ OPRD
@@ -122,7 +122,7 @@ def semantico(regra, a, modulo_B) # (Número da regra, Regra à esquerda, númer
       s['lexema'] = simbolos['id']['lexema']
       s['tipo'] = simbolos['id']['tipo']
     else
-      print("\n“Erro: Variável não declarada” ”, linha: #{@lex.get_l}, coluna: #{@lex.get_c}\n")
+      print("\nErro: Variável não declarada.(linha: #{@lex.get_l}, coluna: #{@lex.get_c})\n")
     end
   elsif regra == 23 # OPRD→ num
     s['lexema'] = simbolos['num']['lexema']
@@ -153,7 +153,7 @@ def semantico(regra, a, modulo_B) # (Número da regra, Regra à esquerda, númer
           ini_rep(tx)
         end
     else
-        print("\n-->Erro Operandos com tipos incompatíveis.\n")
+        print("\n-->Erro Operandos com tipos incompatíveis.(linha: #{@lex.get_l}, coluna: #{@lex.get_c})\n")
         @erros_semanticos += 1
     end
   elsif regra == 33 # R → repita ab_p EXP_R fc_p CP_R    

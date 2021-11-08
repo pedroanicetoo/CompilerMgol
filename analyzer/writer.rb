@@ -78,7 +78,7 @@ end
 def header(tx)
     out_aux = File.open('out_aux.c', 'r')
     traducao = out_aux.readlines()
-    arq_final = File.open('out.c', 'w')
+    arq_final = File.open('programa.c', 'w')
 
     arq_final << "#include<stdio.h>\n"
     arq_final << "typedef char literal[256];\n"

@@ -5,13 +5,14 @@ require 'pry'
 module Analyzer
   class LexAnalyzer
 
-    attr_reader :file, :f, :font, :digits, :letters, :dic, :tokens, :t_symbols, :t_transictions, :errors, :final_states, :n_linha, :n_coluna
+    attr_reader :file, :f, :font, :digits, :letters, :dic, :tokens, :t_symbols, :t_transictions, :errors, :final_states, :n_linha, :n_coluna, :erros_lexicos
 
     def initialize(file)
       @f = open(file, 'r')
       @font = @f.readlines
       @n_linha = 0
       @n_coluna = 0
+      @erros_lexicos = 0
     end
 
     def instance_tables
@@ -65,6 +66,7 @@ module Analyzer
 
     def error(estado, n_linha, n_coluna, simbolo)
       print "\nErro (#{@n_linha+1},#{@n_coluna+1}):#{@errors[estado]} -> #{simbolo}\n".red
+      @erros_lexicos +=1
     end
 
     def get_l
