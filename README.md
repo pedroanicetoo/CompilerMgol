@@ -10,6 +10,6 @@ LR(0) Flux
 
 lr0_flux.pdf
 
-3 - Semantic analyzer\n
+3 - Semantic analyzer
 
-Final File must be compile in C compiler (need some changes to do this)
+Final File must be compile in C compiler (TODO: need some changes to do this)
